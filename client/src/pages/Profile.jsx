@@ -1,17 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios"
+
 
 function ProfilePage() {
   const navigate = useNavigate();
 
+  const [user,setUser] = useState();
+  const token = localStorage.getItem("token")
+  
   // Retrieve user from localStorage
-  const user = JSON.parse(localStorage.getItem('user'));
+ 
+ useEffect(() => {
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
+    axios.get('/api/user', {
+      headers: { "x-auth-token": token }
+    })
+    .then(res => setUser(res.data))
+    .catch(err => {
+      console.error(err);
+      navigate('/'); // token might be expired or invalid
+    });
+  }, [token, navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    navigate('/login');
+    navigate('/');
+    return;
   };
+  
+
+
+
 
   return (
     <div className="max-w-md mx-auto mt-10 bg-white p-6 rounded-xl shadow-md border border-green-200">
@@ -21,12 +45,12 @@ function ProfilePage() {
         <>
           <div className="mb-4">
             <p className="text-gray-600 font-semibold">Name:</p>
-            <p className="text-lg">{user.name}</p>
+            <p className="text-lg text-gray-950">{user.name}</p>
           </div>
 
           <div className="mb-6">
             <p className="text-gray-600 font-semibold">Email:</p>
-            <p className="text-lg">{user.email}</p>
+            <p className="text-lg text-gray-950">{user.email}</p>
           </div>
 
           <button

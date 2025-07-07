@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function MarketPrice() {
+
+  const Navigate = useNavigate();
   // Dummy data 
   const prices = [
     { crop: "Wheat", price: "₹2,500/quintal" },
@@ -9,9 +12,18 @@ function MarketPrice() {
     { crop: "Soybean", price: "₹4,200/quintal" },
     { crop: "Cotton", price: "₹6,500/quintal" },
   ];
+  function goBack(){
+    Navigate('/dashboard');
+    return;
+  }
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md border border-green-100">
+       <button className="mb-4 px-4 py-2 bg-green-600 text-white rounded"
+        onClick={()=> goBack()}
+        >
+           ← Back
+        </button>
       <h2 className="text-2xl font-bold text-green-800 mb-4">📊 Market Prices</h2>
 
       <table className="w-full border-collapse">

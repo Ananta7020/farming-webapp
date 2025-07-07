@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function FertilizerAndPesticide() {
+
+  const Navigate = useNavigate();
   // Dummy data 
   const suggestions = [
     { crop: "Wheat", fertilizer: "Urea, DAP", pesticide: "Imidacloprid" },
@@ -10,8 +13,18 @@ function FertilizerAndPesticide() {
     { crop: "Cotton", fertilizer: "DAP, MOP", pesticide: "Cypermethrin" },
   ];
 
+  function goBack(){
+    Navigate('/dashboard');
+    return;
+  }
+
   return (
     <div className="bg-white p-6 rounded-xl shadow-md border border-green-100">
+       <button className="mb-4 px-4 py-2 bg-green-600 text-white rounded"
+        onClick={()=> goBack()}
+        >
+           ← Back
+        </button>
       <h2 className="text-2xl font-bold text-green-800 mb-4">💊 Fertilizer & Pesticide Suggestions</h2>
 
       <table className="w-full border-collapse">

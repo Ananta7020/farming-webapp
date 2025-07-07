@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function WeatherPage() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
+  const  Navigate = useNavigate();
   const API_KEY = (`https://api.open-meteo.com/v1/forecast?latitude=35.68&longitude=139.69&current_weather=true`) // API key
 
   const fetchWeather = async () => {
@@ -19,8 +21,18 @@ function WeatherPage() {
     }
   };
 
+  function goBack(){
+    Navigate('/dashboard');
+    return;
+  }
+
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-md border border-gray-200">
+       <button className="mb-4 px-4 py-2 bg-green-600 text-white rounded"
+        onClick={()=> goBack()}
+        >
+           ← Back
+        </button>
       <h2 className="text-2xl font-semibold text-green-700 text-center mb-4">🌤 Weather Information</h2>
 
       <div className="flex gap-2 mb-4">

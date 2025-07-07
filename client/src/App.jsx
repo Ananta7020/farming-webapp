@@ -8,6 +8,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import SignupPage from "./pages/Signup";
 import Navbar from "./pages/Header";
 import ProfilePage from "./pages/Profile";
+import ExpenseTracker from "./pages/ExpenseTracker";
+import Tips from "./pages/Tips";
+import FertilizerAndPesticide from "./pages/FertilizerAndPesticide";
+import MarketPrice from "./pages/MarketPrice";
 
 function App() {
   const location = useLocation();
@@ -40,6 +44,15 @@ function App() {
         />
 
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/expence" element={<ProtectedRoute>
+              <ExpenseTracker />
+            </ProtectedRoute>}></Route>
+        <Route path="/tips" element={<Tips/>}></Route>
+        <Route path="/fertilizerandpesticide" element={<FertilizerAndPesticide/>}></Route>
+        <Route path="/marketprice" element={<MarketPrice/>}></Route>
+        <Route path="/crops" element={<CropPage/>}></Route>
+        <Route path="/weather" element={<WeatherPage/>}></Route>
+        
       </Routes>
     </>
   );

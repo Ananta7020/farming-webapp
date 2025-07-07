@@ -22,7 +22,7 @@ const cropRoutes = require('./routes/crop-routes.js');
 app.use('/api/crops', cropRoutes);
 
 //Signup-Login Routes
-const userRoutes = require('./routes/user-routes.js');
+const userRoutes = require('./routes/user-routes');
 app.use('/api/user', userRoutes);
 
 const authRoutes = require('./routes/auth.js')
@@ -33,8 +33,8 @@ app.use('/api/auth', authRoutes)
 // const middAuth = require('./middleware/auth.js');
 // app.use('/api/mauth',middAuth);
 //Expence
-const expenseRoutes = require('./routes/expence-routes.js'); 
+const expenseRoutes = require('./routes/expence-routes'); 
 app.use('/api/expence', expenseRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
