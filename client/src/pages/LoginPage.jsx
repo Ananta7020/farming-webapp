@@ -16,8 +16,10 @@ function LoginPage() {
         "http://localhost:5000/api/auth/login",
         form
       );
-      localStorage.setItem("token", res.data.token); // store token
-      localStorage.setItem("user", res.data.user.name);
+      const {token,user} = res.data;
+      localStorage.setItem("token",token); // store token
+      localStorage.setItem("user", JSON.stringify(user));
+      console.log(user)
       // alert('Welcome, ' + res.data.user.name);      // optional
       navigate("/dashboard", { replace: true }); // navigate to dashboard
     } catch (err) {

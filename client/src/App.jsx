@@ -12,6 +12,7 @@ import ExpenseTracker from "./pages/ExpenseTracker";
 import Tips from "./pages/Tips";
 import FertilizerAndPesticide from "./pages/FertilizerAndPesticide";
 import MarketPrice from "./pages/MarketPrice";
+import AboutPage from "./pages/AboutPages";
 
 function App() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function App() {
 
       <Routes>
       <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/about" element={<AboutPage/>}/>
         <Route path="/" element={<LoginPage />} />
         <Route
           path="/dashboard"

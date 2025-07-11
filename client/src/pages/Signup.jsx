@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function SignupPage() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+  const Navigate = useNavigate()
 
   const handleSubmit = async () => {
     try {
       const res = await axios.post('http://localhost:5000/api/auth/signup', form);
       alert(res.data.msg);
+      Navigate("/");
     } catch (err) {
       alert(err.response.data.msg || 'Signup failed');
     }
