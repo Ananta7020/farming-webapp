@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 function ExpenseTracker() {
   const token = localStorage.getItem("token");
- console.log(token)
- const navigate = useNavigate()
+  console.log(token);
+  const navigate = useNavigate();
   const [expenses, setExpenses] = useState([]);
   const [newExpense, setNewExpense] = useState({
     category: "",
@@ -50,7 +50,7 @@ function ExpenseTracker() {
 
   const saveEdit = async (id) => {
     try {
-      const res = await api.put(`/expence/${id}`, editedExpense, {
+      const res = await api.put(`api/expence/${id}`, editedExpense, {
         headers: { "x-auth-token": token },
       });
       setExpenses((prev) =>
@@ -64,7 +64,7 @@ function ExpenseTracker() {
 
   const deleteExpense = async (id) => {
     try {
-      await api.delete(`/expence/${id}`, {
+      await api.delete(`api/expence/${id}`, {
         headers: { "x-auth-token": token },
       });
       setExpenses((prev) => prev.filter((exp) => exp._id !== id));
@@ -82,18 +82,19 @@ function ExpenseTracker() {
     0
   );
 
-  function goBack(){
-    navigate('/dashboard');
+  function goBack() {
+    navigate("/dashboard");
     return;
   }
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-md border border-green-100">
-       <button className="mb-4 px-4 py-2 bg-green-600 text-white rounded"
-        onClick={()=> goBack()}
-        >
-           ← Back
-        </button>
+      <button
+        className="mb-4 px-4 py-2 bg-green-600 text-white rounded"
+        onClick={() => goBack()}
+      >
+        ← Back
+      </button>
       <h2 className="text-2xl font-bold text-green-800 mb-4">
         💸 Expense Tracker
       </h2>
@@ -137,7 +138,9 @@ function ExpenseTracker() {
       <table className="w-full border-collapse mb-4">
         <thead>
           <tr className="bg-green-100 text-green-800">
-            <th className="py-3 px-4 border border-green-200 text-left">Date</th>
+            <th className="py-3 px-4 border border-green-200 text-left">
+              Date
+            </th>
             <th className="py-3 px-4 border border-green-200 text-left">
               Category
             </th>
@@ -256,7 +259,7 @@ function ExpenseTracker() {
           )}
         </tbody>
       </table>
-      
+
       <div className="text-right text-xl font-semibold text-green-900">
         Total: ₹{totalExpenses}
       </div>

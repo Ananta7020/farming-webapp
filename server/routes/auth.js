@@ -5,7 +5,8 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user-model') 
 
-const JWT_SECRET = 'yoursecretkey'
+const JWT_SECRET =process.env.JWT_SECRET || 'your_secret_key'
+
 
 // POST /api/auth/signup
 router.post('/signup', async (req, res) => {
