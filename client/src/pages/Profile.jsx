@@ -9,8 +9,8 @@ function ProfilePage() {
   const token = localStorage.getItem("token");
   const userString = localStorage.getItem("user"); // already a string
   const UserDetails = JSON.parse(userString); // convert to object
+  console.log(UserDetails.role);
 
-  
   // console.log(token);
 
   // Retrieve user from localStorage
@@ -55,7 +55,16 @@ function ProfilePage() {
 
           <div className="mb-6  flex gap-2 flex-row">
             <p className="text-gray-600 font-semibold text-lg">Email:</p>
-            <p className="text-gray-600 font-semibold text-lg">{UserDetails.email}</p>
+            <p className="text-gray-600 font-semibold text-lg">
+              {UserDetails.email}
+            </p>
+          </div>
+
+          <div className="mb-6  flex gap-2 flex-row">
+            <p className="text-gray-600 font-semibold text-lg">Role:</p>
+            <p className="text-gray-600 font-semibold text-lg">
+              {UserDetails.role}
+            </p>
           </div>
 
           <button

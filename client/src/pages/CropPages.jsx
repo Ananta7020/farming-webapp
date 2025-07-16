@@ -16,7 +16,7 @@ function CropPage() {
     });
     setCrops(res.data);
   }catch{
-    alert("Feild to Load Crops")
+    alert("Faild to Load Crops")
   }
   };
   console.log();
@@ -27,8 +27,8 @@ const addCrop = async () => {
   try {
     await api.post(
       "/api/crops",
-      { name, plantedDate: new Date() }, // ✅ Correct object as data
-      { headers: { "x-auth-token": token } } // ✅ Token in config
+      { name, plantedDate: new Date() }, 
+      { headers: { "x-auth-token": token } }
     );
     setName("");
     getCrops();
@@ -54,7 +54,7 @@ const addCrop = async () => {
   useEffect(() => {
     getCrops();
   }, []);
-
+  
   function goBack() {
     Navigate("/dashboard");
     return;

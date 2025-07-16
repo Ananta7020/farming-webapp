@@ -13,6 +13,9 @@ import Tips from "./pages/Tips";
 import FertilizerAndPesticide from "./pages/FertilizerAndPesticide";
 import MarketPrice from "./pages/MarketPrice";
 import AboutPage from "./pages/AboutPages";
+import ShopsPage from "./pages/ShopPage";
+import AddShopPage from "./pages/AddShopPage";
+import AddProductPage from "./pages/AddProductPage";
 
 function App() {
   const location = useLocation();
@@ -35,6 +38,11 @@ function App() {
       <Routes>
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/about" element={<AboutPage/>}/>
+      <Route path="/shops" element={<ShopsPage/>}></Route>
+      <Route path="/addshop" element={<AddShopPage/>}></Route>
+      {/* <Route path="/shop/:id/addproduct" element={<AddProductPage />} /> */}
+       <Route path="/addproduct" element={<AddProductPage />} />
+
         <Route path="/" element={<LoginPage />} />
         <Route
           path="/dashboard"
