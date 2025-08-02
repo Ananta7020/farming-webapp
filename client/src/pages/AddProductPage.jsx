@@ -3,7 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 
 function AddProductPage() {
-  const { id: shopId } = useParams(); // get shopId from URL
+  const { shopId } = useParams(); // get shopId from URL
+  console.log(shopId);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -19,14 +20,14 @@ function AddProductPage() {
   const handleSubmit = async () => {
     try {
       await api.post(
-        "/api/products",
+        '/api/products/',
         { ...form, shopId },
         {
           headers: { "x-auth-token": token },
         }
       );
       alert("✅ Product added!");
-      navigate("/dashboard");
+      navigate("/addshop");
     } catch (err) {
       alert(err.response?.data?.msg || "❌ Failed to add product");
     }

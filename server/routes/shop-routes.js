@@ -48,15 +48,17 @@ router.get("/mine", auth, async (req, res) => {
 });
 
 // Get current shop of the logged-in shopkeeper
-router.get('/myshop', auth, async (req, res) => {
+// Add this in shop-routes.js
+router.get("/myshop", auth, async (req, res) => {
   try {
     const shop = await Shop.findOne({ ownerId: req.user.id });
     if (!shop) return res.status(404).json({ msg: "Shop not found" });
     res.json(shop);
   } catch (err) {
-    res.status(500).json({ msg: "Error fetching shop" });
+    res.status(500).json({ msg: err.message });
   }
 });
+
 
 
 module.exports = router;

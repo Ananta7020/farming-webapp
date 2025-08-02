@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../services/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 
 function AddShopPage() {
   const [shop, setShop] = useState(null);
@@ -8,22 +8,30 @@ function AddShopPage() {
   const [form, setForm] = useState({ name: "", address: "" });
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const { shopId } = useParams();
 
   const fetchMyShop = async () => {
     try {
       const res = await api.get("/api/shops/myshop", {
         headers: { "x-auth-token": token },
       });
-      setShop(res.data);
-      fetchProducts(res.data._id); // get products
+      const shopData = res.data;
+      console.log("Fetched shop:", shopData);
+
+      setShop(shopData); // triggers useEffect
     } catch (err) {
       setShop(null);
     }
   };
 
-  const fetchProducts = async (shopId) => {
+  const fetchProducts = async () => {
+    const result = await api.get(`/api/shops/${shopId}`, {
+      headers: { "x-auth-token": token },
+    });
+    const spid = result.data._id;
+    console.log(spid)
     try {
-      const res = await api.get(`/api/products/shop/${shopId}`);
+      const res = await api.get(`/api/products/${shopId}`);
       setProducts(res.data);
     } catch {
       alert("❌ Failed to fetch products");
@@ -55,6 +63,12 @@ function AddShopPage() {
   };
 
   useEffect(() => {
+    if (shop && shop._id) {
+      fetchProducts(shop._id);
+    }
+  }, [shop]);
+
+  useEffect(() => {
     fetchMyShop();
   }, []);
 
@@ -66,9 +80,7 @@ function AddShopPage() {
       {shop ? (
         <>
           <div className="mb-4">
-            <p className="text-lg font-semibold text-green-800">
-              {shop.name}
-            </p>
+            <p className="text-lg font-semibold text-green-800">{shop.name}</p>
             <p className="text-gray-600">{shop.address}</p>
           </div>
 
