@@ -39,6 +39,10 @@ function App() {
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/about" element={<AboutPage/>}/>
       <Route path="/shops" element={<ShopsPage/>}></Route>
+
+      {/* it is for shopkeeper only */}
+      <Route path="/shops/myshop" element={<ShopsPage/>}></Route>
+      
       <Route path="/addshop" element={<AddShopPage/>}></Route>
       {/* <Route path="/shop/:id/addproduct" element={<AddProductPage />} /> */}
        <Route path="/addproduct" element={<AddProductPage />} />

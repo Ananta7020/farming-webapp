@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../services/api";
-import { useNavigate,useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function AddShopPage() {
   const [shop, setShop] = useState(null);
@@ -8,7 +8,6 @@ function AddShopPage() {
   const [form, setForm] = useState({ name: "", address: "" });
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-  const { shopId } = useParams();
 
   const fetchMyShop = async () => {
     try {
@@ -24,14 +23,14 @@ function AddShopPage() {
     }
   };
 
-  const fetchProducts = async () => {
-    const result = await api.get(`/api/shops/${shopId}`, {
+  const fetchProducts = async (shopId) => {
+    const result = await api.get("/api/shops/myshop", {
       headers: { "x-auth-token": token },
     });
     const spid = result.data._id;
     console.log(spid)
     try {
-      const res = await api.get(`/api/products/${shopId}`);
+      const res = await api.get(`/api/products/${spid}`);
       setProducts(res.data);
     } catch {
       alert("❌ Failed to fetch products");

@@ -21,7 +21,7 @@ router.post("/", auth, async (req, res) => {
 });
 
 // ✅ Get all products for a specific shop
-router.get("/:shopId", async (req, res) => {
+router.get("/shop/:shopId", async (req, res) => {
   try {
     const products = await Product.find({ shopId: req.params.shopId });
     res.json(products);
@@ -30,9 +30,8 @@ router.get("/:shopId", async (req, res) => {
   }
 });
 
-
-// ✅ Delete product by product ID (not shop ID)
-router.delete("/:productId", async (req, res) => {
+// ✅ Delete product by product ID
+router.delete("/:productId", auth, async (req, res) => {
   try {
     const deleted = await Product.findByIdAndDelete(req.params.productId);
     if (!deleted) {

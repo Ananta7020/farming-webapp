@@ -3,24 +3,51 @@ import { api } from "../services/api";
 
 function ShopsPage() {
   const [shop, setShop] = useState([]);
+  const [role, setRole] = useState(null);
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.role) {
+      setRole(user.role);
+    }
+  }, []);
 
   const getShops = async () => {
     try {
       const res = await api.get("/api/shops");
       setShop(res.data);
-      console.log(res.data);
+      console.log("All shops:", res.data);
     } catch (err) {
       alert(err.response?.data?.msg || "❌ Failed to load shops.");
     }
   };
 
+  const getMyShop = async () => {
+    try {
+      const res = await api.get("/api/shops/myshop", {
+        headers: { "x-auth-token": token },
+      });
+      setShop([res.data]); // Wrap in array so `.map()` works
+      console.log("My shop:", res.data);
+    } catch (err) {
+      alert(err.response?.data?.msg || "❌ Failed to load my shop.");
+    }
+  };
+
   useEffect(() => {
-    getShops();
-  }, []);
+    if (role === "shopkeeper") {
+      getMyShop();
+    } else {
+      getShops();
+    }
+  }, [role]);
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold text-green-800 mb-4">Available Shops 🛒</h2>
+      <h2 className="text-2xl font-bold text-green-800 mb-4">
+        {role === "shopkeeper" ? "My Shop 🏪" : "Available Shops 🛒"}
+      </h2>
 
       {shop.length === 0 ? (
         <p className="text-gray-500">No shops found.</p>

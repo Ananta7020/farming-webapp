@@ -37,18 +37,8 @@ router.get("/", async (req, res) => {
   }
 });
 
-// routes/shop-routes.js
-router.get("/mine", auth, async (req, res) => {
-  try {
-    const myShops = await Shop.find({ ownerId: req.user.id });
-    res.json(myShops);
-  } catch (err) {
-    res.status(500).json({ msg: "Failed to fetch shop", error: err.message });
-  }
-});
-
 // Get current shop of the logged-in shopkeeper
-// Add this in shop-routes.js
+//this is for the shopkeeper not for user
 router.get("/myshop", auth, async (req, res) => {
   try {
     const shop = await Shop.findOne({ ownerId: req.user.id });
