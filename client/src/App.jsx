@@ -16,6 +16,7 @@ import AboutPage from "./pages/AboutPages";
 import ShopsPage from "./pages/ShopPage";
 import AddShopPage from "./pages/AddShopPage";
 import AddProductPage from "./pages/AddProductPage";
+import ShopDetailsPage from "./pages/ShopDeatailsPage";
 
 function App() {
   const location = useLocation();
@@ -39,6 +40,8 @@ function App() {
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/about" element={<AboutPage/>}/>
       <Route path="/shops" element={<ShopsPage/>}></Route>
+
+      <Route path="/shops/:aaa" element={<ShopDetailsPage/>}/>
 
       {/* it is for shopkeeper only */}
       <Route path="/shops/myshop" element={<ShopsPage/>}></Route>

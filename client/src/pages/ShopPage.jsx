@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { api } from "../services/api";
+import { useNavigate } from "react-router-dom"; // ✅ import navigate
 
 function ShopsPage() {
   const [shop, setShop] = useState([]);
   const [role, setRole] = useState(null);
   const token = localStorage.getItem("token");
+  const navigate = useNavigate(); // ✅ create navigate
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -56,7 +58,8 @@ function ShopsPage() {
           {shop.map((s) => (
             <div
               key={s._id}
-              className="bg-white border border-green-200 rounded-xl shadow hover:shadow-lg transition p-4"
+              className="bg-white border border-green-200 rounded-xl shadow hover:shadow-lg transition p-4 cursor-pointer"
+              onClick={() => navigate(`/shops/${s._id}`)} // ✅ go to details page
             >
               <h3 className="text-lg font-semibold text-green-700">{s.name}</h3>
               <p className="text-gray-600">📍 {s.address}</p>
