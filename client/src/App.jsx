@@ -41,14 +41,14 @@ function App() {
       <Route path="/about" element={<AboutPage/>}/>
       <Route path="/shops" element={<ShopsPage/>}></Route>
 
-      <Route path="/shops/:aaa" element={<ShopDetailsPage/>}/>
+      <Route path="/shops/:shopId" element={<ShopDetailsPage/>}/>
 
       {/* it is for shopkeeper only */}
       <Route path="/shops/myshop" element={<ShopsPage/>}></Route>
       
       <Route path="/addshop" element={<AddShopPage/>}></Route>
       {/* <Route path="/shop/:id/addproduct" element={<AddProductPage />} /> */}
-       <Route path="/addproduct" element={<AddProductPage />} />
+       <Route path="/addproduct/:shopId" element={<AddProductPage />} />
 
         <Route path="/" element={<LoginPage />} />
         <Route

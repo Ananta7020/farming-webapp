@@ -4,6 +4,7 @@ import { api } from "../services/api";
 
 function AddProductPage() {
   const { shopId } = useParams(); // get shopId from URL
+  // const shopId = req.params.shopId;
   console.log(shopId);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -16,11 +17,12 @@ function AddProductPage() {
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
-
+    console.log(form )
+    console.log(shopId)
   const handleSubmit = async () => {
     try {
       await api.post(
-        '/api/products/',
+         `/api/products/${shopId}`,
         { ...form, shopId },
         {
           headers: { "x-auth-token": token },

@@ -9,14 +9,18 @@ function ShopDetailsPage() {
 
   const fetchShopDetails = async () => {
     try {
-      const shopRes = await api.get(`/api/shops/${shopId}`); // Get shop info
+      const shopRes = await api.get(`/api/shops/${shopId}`);
       setShop(shopRes.data);
 
-      const productsRes = await api.get(`/api/products/shops/${shopId}`); // Get products for shop
+      const productsRes = await api.get(`/api/products/shop/${shopId}`);
       setProducts(productsRes.data);
     } catch (err) {
       alert("❌ Failed to load shop details");
     }
+  };
+
+  const handleBuy = async (product) => {
+    alert(`✅ You bought ${product.name} for ₹${product.price}`);
   };
 
   useEffect(() => {
@@ -36,12 +40,21 @@ function ShopDetailsPage() {
       {products.length === 0 ? (
         <p className="text-gray-500">No products yet.</p>
       ) : (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {products.map((p) => (
-            <li key={p._id} className="border p-4 rounded shadow">
-              <p className="font-bold">{p.name}</p>
-              <p>₹{p.price}</p>
-              <p className="text-sm text-gray-500">{p.description}</p>
+            <li
+              key={p._id}
+              className="border p-3 rounded shadow text-center flex flex-col justify-between"
+            >
+              <p className="font-bold text-sm">{p.name}</p>
+              <p className="text-sm">₹{p.price}</p>
+              <p className="text-xs text-gray-500 truncate">{p.description}</p>
+              <button
+                onClick={() => handleBuy(p)}
+                className="mt-2 bg-green-600 hover:bg-green-700 text-white py-1 px-2 rounded text-sm"
+              >
+                🛒 Buy
+              </button>
             </li>
           ))}
         </ul>

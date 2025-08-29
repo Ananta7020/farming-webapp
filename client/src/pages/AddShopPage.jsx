@@ -24,16 +24,15 @@ function AddShopPage() {
   };
 
   const fetchProducts = async (shopId) => {
-    const result = await api.get("/api/shops/myshop", {
-      headers: { "x-auth-token": token },
-    });
-    const spid = result.data._id;
-    console.log(spid)
     try {
-      const res = await api.get(`/api/products/${spid}`);
+      const res = await api.get(`/api/products/shop/${shopId}`, {
+        headers: { "x-auth-token": token },
+      });
       setProducts(res.data);
-    } catch {
+      console.log("Fetched products:", res.data);
+    } catch (e) {
       alert("❌ Failed to fetch products");
+      console.error(e);
     }
   };
 
@@ -53,13 +52,18 @@ function AddShopPage() {
   };
 
   const deleteProduct = async (id) => {
-    try {
-      await api.delete(`/api/products/${id}`);
-      setProducts((prev) => prev.filter((p) => p._id !== id));
-    } catch {
-      alert("❌ Failed to delete product");
-    }
-  };
+  try {
+    await api.delete(`/api/products/${id}`, {
+      headers: { "x-auth-token": token },
+    });
+    setProducts((prev) => prev.filter((p) => p._id !== id));
+    alert("🗑 Product deleted successfully");
+  } catch (err) {
+    alert(err.response?.data?.msg || "❌ Failed to delete product");
+    console.error("Delete error:", err);
+  }
+};
+
 
   useEffect(() => {
     if (shop && shop._id) {
@@ -85,7 +89,7 @@ function AddShopPage() {
 
           <button
             className="bg-green-600 text-white px-4 py-2 rounded mb-6"
-            onClick={() => navigate("/addproduct")}
+            onClick={() => navigate(`/addproduct/${shop._id}`)} // ✅ send shopId
           >
             ➕ Add Product
           </button>

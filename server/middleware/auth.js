@@ -3,7 +3,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 
 function verifyToken(req, res, next) {
   let token = req.header('x-auth-token') || req.header('Authorization');
-  console.log("Received token:", token);
+ 
 
   if (!token) {
     return res.status(401).json({ msg: 'No token. Authorization denied.' });

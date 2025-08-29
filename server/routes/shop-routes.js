@@ -49,6 +49,16 @@ router.get("/myshop", auth, async (req, res) => {
   }
 });
 
+// Get shop by ID
+router.get("/:shopId", async (req, res) => {
+  try {
+    const shop = await Shop.findById(req.params.shopId).populate("ownerId", "name email");
+    if (!shop) return res.status(404).json({ msg: "Shop not found" });
+    res.json(shop);
+  } catch (err) {
+    res.status(500).json({ msg: "Error fetching shop details", error: err.message });
+  }
+});
 
 
 module.exports = router;
