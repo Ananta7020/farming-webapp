@@ -23,6 +23,25 @@ function ShopDetailsPage() {
     alert(`✅ You bought ${product.name} for ₹${product.price}`);
   };
 
+  const handleAddToCart = async (product) => {
+    try {
+      // Retrieve token from secure storage
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("❌ Please log in to add items to cart");
+        return;
+      }
+      await api.post(
+        "/api/cart/add",
+        { productId: product._id },
+        { headers: { "x-auth-token": token } }
+      );
+      alert(`✅ ${product.name} added to cart`);
+    } catch (err) {
+      alert(err.response?.data?.msg || "❌ Failed to add to cart");
+    }
+  };
+
   useEffect(() => {
     fetchShopDetails();
   }, [shopId]);
@@ -54,6 +73,12 @@ function ShopDetailsPage() {
                 className="mt-2 bg-green-600 hover:bg-green-700 text-white py-1 px-2 rounded text-sm"
               >
                 🛒 Buy
+              </button>
+              <button
+                onClick={() => handleAddToCart(p)}
+                className="mt-2 bg-blue-600 hover:bg-blue-700 text-white py-1 px-2 rounded text-sm ml-2"
+              >
+                ➕ Cart
               </button>
             </li>
           ))}

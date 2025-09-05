@@ -17,6 +17,7 @@ import ShopsPage from "./pages/ShopPage";
 import AddShopPage from "./pages/AddShopPage";
 import AddProductPage from "./pages/AddProductPage";
 import ShopDetailsPage from "./pages/ShopDeatailsPage";
+import CartPage from "./pages/CartPage";
 
 function App() {
   const location = useLocation();
@@ -37,18 +38,20 @@ function App() {
       {shouldShowNavbar && <Navbar />}
 
       <Routes>
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/about" element={<AboutPage/>}/>
-      <Route path="/shops" element={<ShopsPage/>}></Route>
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/shops" element={<ShopsPage />}></Route>
 
-      <Route path="/shops/:shopId" element={<ShopDetailsPage/>}/>
+        <Route path="/shops/:shopId" element={<ShopDetailsPage />} />
 
-      {/* it is for shopkeeper only */}
-      <Route path="/shops/myshop" element={<ShopsPage/>}></Route>
-      
-      <Route path="/addshop" element={<AddShopPage/>}></Route>
-      {/* <Route path="/shop/:id/addproduct" element={<AddProductPage />} /> */}
-       <Route path="/addproduct/:shopId" element={<AddProductPage />} />
+        {/* it is for shopkeeper only */}
+        <Route path="/shops/myshop" element={<ShopsPage />}></Route>
+
+        <Route path="/addshop" element={<AddShopPage />}></Route>
+
+        <Route path="/addproduct/:shopId" element={<AddProductPage />} />
+
+        <Route path="/cart" element={<CartPage />}></Route>
 
         <Route path="/" element={<LoginPage />} />
         <Route
@@ -61,15 +64,22 @@ function App() {
         />
 
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/expence" element={<ProtectedRoute>
+        <Route
+          path="/expence"
+          element={
+            <ProtectedRoute>
               <ExpenseTracker />
-            </ProtectedRoute>}></Route>
-        <Route path="/tips" element={<Tips/>}></Route>
-        <Route path="/fertilizerandpesticide" element={<FertilizerAndPesticide/>}></Route>
-        <Route path="/marketprice" element={<MarketPrice/>}></Route>
-        <Route path="/crops" element={<CropPage/>}></Route>
-        <Route path="/weather" element={<WeatherPage/>}></Route>
-        
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route path="/tips" element={<Tips />}></Route>
+        <Route
+          path="/fertilizerandpesticide"
+          element={<FertilizerAndPesticide />}
+        ></Route>
+        <Route path="/marketprice" element={<MarketPrice />}></Route>
+        <Route path="/crops" element={<CropPage />}></Route>
+        <Route path="/weather" element={<WeatherPage />}></Route>
       </Routes>
     </>
   );
